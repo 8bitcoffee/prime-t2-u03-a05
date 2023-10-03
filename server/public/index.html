@@ -16,8 +16,8 @@
     <hr/>
     <div>
         <form id="calculator" onSubmit="evaluate(event)">
-            <input type="numeric" id="number-display"/>
-            <button type="button" onclick="keypress('clearAll')" id="clear" class="function">AC</button>
+            <input type="numeric" id="number-display" value="0"/>
+            <button type="button" onclick="keypress('clearAll')" id="clear-all" class="function">AC</button>
             <button type="button" onclick="keypress('+/-')" id="pos-neg" class="function">+/-</button>
             <button type="button" onclick="keypress('%')" id="percent" class="function">%</button>
             <button type="button" onclick="keypress('/')" id="divide" class="operator">/</button>
@@ -39,14 +39,13 @@
         </form>
     </div>
     <hr/>
-    <div id="current-equation">
-        <h4>
-            <!-- Display of current equation series -->
-        </h4>
-    </div>
+    <h4 class="current-equation" id="current-equation">
+        <!-- Display of current equation -->
+    </h4>
     <hr/>
+    <button id="clear-history-btn" onClick="clearHistory(event)">Clear History</button>
     <div id="history">
-        <!-- Equation history spawns here -->
+        <!-- Table of history spawns here with line delete buttons -->
     </div>
 </body>
 </html>
