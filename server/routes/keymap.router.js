@@ -21,10 +21,14 @@ let keymap = [
     {keypress: "clear", id: "clear", type:"function"},
     {keypress: "%", id: "percent", type:"function"},
     {keypress: "+/-", id: "pos-neg", type:"function"},
-    {keypress: "=", id: "equals", type:"evaluate"},
+    {keypress: "=", id: "equals", type:"equals"},
 ]
     
-
+router.get('/:keypress', (req,res) =>{
+    let returnkey = keymap.filter(key => key.keypress == req.params.keypress);
+    console.log(returnkey);
+    res.send(returnkey[0]);
+});
 
 
 

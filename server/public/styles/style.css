@@ -63,9 +63,13 @@ hr {
 }
 
 .operator-selected {
+    display: block;
+    border-radius: 0px;
+    font-size: 20pt;
     background-color: #FE8D0E;
     color: #FFEED8;
     border: 5px solid black;
+    text-align: center;
 }
 
 .number {
