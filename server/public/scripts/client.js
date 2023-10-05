@@ -1,13 +1,28 @@
 console.log("JS Sourced");
 
 let numberDisplay = document.querySelector('#number-display');
-let storedValue = ""
+let id = 0;
+let storedValue = resetStoredValue();
 let lastPressedType = "none";
+
 
 const clearBtn = document.querySelector('#clear');
 const currentEquation = document.querySelector('#current-equation');
 const history = document.querySelector('#history');
 
+function resetStoredValue() {
+    id += 1;
+
+    let newObject = {
+        id: id,
+        number1: "0",
+        operator: "",
+        number2: "",
+        solution: ""
+    }
+
+    return newObject;
+}
 
 function keypress(inputStr){
     console.log("keypress: ", inputStr);
@@ -18,13 +33,13 @@ function keypress(inputStr){
         console.log(keymap);
         if (lastPressedType == "none"){
             if (keymap.type == 'number'){
-                if (numberDisplay.value == '0' && inputStr != '.'){
-                    numberDisplay.value = inputStr;
+                if (numberDisplay.value == '0' && inputStr != 'decimal'){
+                    numberDisplay.value = keymap.keypress;
                 }
                 else {
-                    numberDisplay.value += inputStr;
+                    numberDisplay.value += keymap.keypress;
                 }
-                storedValue += inputStr;
+                storedValue += keymap.keypress;
             }
             else if (keymap.type == 'operator'){
                 let opButton = document.getElementById(`${keymap.id}`);
@@ -39,13 +54,13 @@ function keypress(inputStr){
         }
         else if (lastPressedType == 'number') {
             if (keymap.type == 'number'){
-                if (numberDisplay.value == '0' && inputStr != '.'){
-                    numberDisplay.value = inputStr;
+                if (numberDisplay.value == '0' && inputStr != 'decimal'){
+                    numberDisplay.value = keymap.keypress;
                 }
                 else {
-                    numberDisplay.value += inputStr;
+                    numberDisplay.value += keymap.keypress;
                 }
-                storedValue += inputStr;
+                storedValue += keymap.keypress;
             }
             else if (keymap.type == 'operator'){
                 let opButton = document.getElementById(`${keymap.id}`);
@@ -55,7 +70,7 @@ function keypress(inputStr){
 
                 }
                 else{
-                    storedValue += ` ${inputStr}`;
+                    storedValue += ` ${keymap.keypress}`;
                     currentEquation.innerHTML = `${storedValue}`;
                 }
             }

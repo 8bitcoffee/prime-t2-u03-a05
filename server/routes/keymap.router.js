@@ -24,13 +24,10 @@ let keymap = [
     {keypress: "=", id: "equals", type:"equals"},
 ]
     
-router.get('/:keypress', (req,res) =>{
-    let returnkey = keymap.filter(key => key.keypress == req.params.keypress);
-    console.log(returnkey);
+router.get('/:id', (req,res) =>{
+    console.log(`GET req made for '/keymap id - ${req.params.id}`);
+    let returnkey = keymap.filter(key => key.id == req.params.id);
     res.send(returnkey[0]);
 });
-
-
-
 
 module.exports = router;

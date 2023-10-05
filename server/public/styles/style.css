@@ -98,3 +98,27 @@ hr {
     width: 120px;
     font-size: 12pt;
 }
+
+#counter {
+    text-align: center;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 3px solid black;
+    width: 95vw;
+}
+
+thead {
+    border: 3px solid black;
+}
+
+th, td {
+    text-align: center;
+}
+
+th {
+    border: 3px solid black;
+}

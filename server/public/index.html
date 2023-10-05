@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles/style.css"/>
     <link rel="shortcut icon" href="img/favicon.ico"/>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="scripts/client.js" defer></script>
+    <script src="scripts/client2.js" defer></script>
     <title>Server-Side Calculator</title>
 </head>
 <body>
@@ -14,38 +14,51 @@
         <h1 id="title">Server-side Caluclator</h1>
     </header>
     <hr/>
-    <div>
-        <form id="calculator" onSubmit="evaluate(event)">
-            <input type="numeric" id="number-display" value="0"/>
-            <button type="button" onclick="keypress('clearAll')" id="clear" class="function">AC</button>
-            <button type="button" onclick="keypress('+/-')" id="pos-neg" class="function">+/-</button>
-            <button type="button" onclick="keypress('%')" id="percent" class="function">%</button>
-            <button type="button" onclick="keypress('/')" id="divide" class="operator">/</button>
-            <button type="button" onclick="keypress('7')" id="seven" class="number">7</button>
-            <button type="button" onclick="keypress('8')" id="eight" class="number">8</button>
-            <button type="button" onclick="keypress('9')" id="nine" class="number">9</button>
-            <button type="button" onclick="keypress('*')" id="multiply" class="operator">*</button>
-            <button type="button" onclick="keypress('4')" id="four" class="number">4</button>
-            <button type="button" onclick="keypress('5')" id="five" class="number">5</button>
-            <button type="button" onclick="keypress('6')" id="six" class="number">6</button>
-            <button type="button" onclick="keypress('-')" id="subtract" class="operator">-</button>
-            <button type="button" onclick="keypress('1')" id="one" class="number">1</button>
-            <button type="button" onclick="keypress('2')" id="two" class="number">2</button>
-            <button type="button" onclick="keypress('3')" id="three" class="number">3</button>
-            <button type="button" onclick="keypress('+')" id="add" class="operator">+</button>
-            <button type="button" onclick="keypress('0')" id="zero" class="number">0</button>
-            <button type="button" onclick="keypress('.')" id="decimal" class="number">.</button>
-            <button type="submit" onclick="keypress('=')" id="equals" class="operator">=</button>
-        </form>
+    <div id="calculator" onSubmit="evaluate(event)">
+        <input type="numeric" id="number-display" value="0"/>
+        <button type="button" onclick="keypress('clearAll')" id="clear" class="function">AC</button>
+        <button type="button" onclick="keypress('pos-ne')" id="pos-neg" class="function">+/-</button>
+        <button type="button" onclick="keypress('percent')" id="percent" class="function">%</button>
+        <button type="button" onclick="keypress('divide')" id="divide" class="operator">/</button>
+        <button type="button" onclick="keypress('seven')" id="seven" class="number">7</button>
+        <button type="button" onclick="keypress('eight')" id="eight" class="number">8</button>
+        <button type="button" onclick="keypress('nine')" id="nine" class="number">9</button>
+        <button type="button" onclick="keypress('multiply')" id="multiply" class="operator">*</button>
+        <button type="button" onclick="keypress('four')" id="four" class="number">4</button>
+        <button type="button" onclick="keypress('five')" id="five" class="number">5</button>
+        <button type="button" onclick="keypress('six')" id="six" class="number">6</button>
+        <button type="button" onclick="keypress('subtract')" id="subtract" class="operator">-</button>
+        <button type="button" onclick="keypress('one')" id="one" class="number">1</button>
+        <button type="button" onclick="keypress('two')" id="two" class="number">2</button>
+        <button type="button" onclick="keypress('three')" id="three" class="number">3</button>
+        <button type="button" onclick="keypress('add')" id="add" class="operator">+</button>
+        <button type="button" onclick="keypress('zero')" id="zero" class="number">0</button>
+        <button type="button" onclick="keypress('decimal')" id="decimal" class="number">.</button>
+        <button type="button" onclick="keypress('equals')" id="equals" class="operator">=</button>
     </div>
     <hr/>
     <h4 class="current-equation" id="current-equation">
         <!-- Display of current equation -->
     </h4>
     <hr/>
-    <button id="clear-history-btn" onClick="clearHistory(event)">Clear History</button>
-    <div id="history">
-        <!-- Table of history spawns here with line delete buttons -->
-    </div>
+    <button id="clear-history-btn" onClick="clearHistory('all')">Clear History</button>
+    <h4 id="counter">
+        <!-- Equation counter -->
+    </h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Operator</th>
+                <th>Number</th>
+                <th>=</th>
+                <th>Solution</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="history">
+            <!-- Table of history spawns here with line delete buttons -->
+        </tbody>
+    </table>
 </body>
 </html>
