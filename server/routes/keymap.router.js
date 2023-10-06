@@ -22,12 +22,18 @@ let keymap = [
     {keypress: "%", id: "percent", type:"function"},
     {keypress: "+/-", id: "pos-neg", type:"function"},
     {keypress: "=", id: "equals", type:"equals"},
-]
+];
     
 router.get('/:id', (req,res) =>{
-    console.log(`GET req made for '/keymap id - ${req.params.id}`);
-    let returnkey = keymap.filter(key => key.id == req.params.id);
-    res.send(returnkey[0]);
+    if (req.params.id == "all"){
+        console.log(`GET req made for '/keymap/all'`);
+        res.send(keymap);
+    }
+    else {
+        console.log(`GET req made for '/keymap id - ${req.params.id}`);
+        let returnkey = keymap.filter(key => key.id == req.params.id);
+        res.send(returnkey[0]);
+    }
 });
 
 module.exports = router;

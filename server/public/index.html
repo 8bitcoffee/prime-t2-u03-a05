@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles/style.css"/>
     <link rel="shortcut icon" href="img/favicon.ico"/>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="scripts/client2.js" defer></script>
+    <script src="scripts/client3.js" defer></script>
     <title>Server-Side Calculator</title>
 </head>
 <body>
@@ -14,8 +14,8 @@
         <h1 id="title">Server-side Caluclator</h1>
     </header>
     <hr/>
-    <div id="calculator" onSubmit="evaluate(event)">
-        <input type="numeric" id="number-display" value="0"/>
+    <div id="calculator">
+        <p id="number-display"></p>
         <button type="button" onclick="keypress('clearAll')" id="clear" class="function">AC</button>
         <button type="button" onclick="keypress('pos-ne')" id="pos-neg" class="function">+/-</button>
         <button type="button" onclick="keypress('percent')" id="percent" class="function">%</button>
@@ -37,20 +37,20 @@
         <button type="button" onclick="keypress('equals')" id="equals" class="operator">=</button>
     </div>
     <hr/>
-    <h4 class="current-equation" id="current-equation">
+    <h2 class="current-equation" id="current-equation">
         <!-- Display of current equation -->
-    </h4>
+    </h2>
     <hr/>
     <button id="clear-history-btn" onClick="clearHistory('all')">Clear History</button>
+    <br/>
     <h4 id="counter">
         <!-- Equation counter -->
     </h4>
+    <br/>
     <table>
         <thead>
             <tr>
-                <th>Number</th>
-                <th>Operator</th>
-                <th>Number</th>
+                <th>Equation</th>
                 <th>=</th>
                 <th>Solution</th>
                 <th>Delete</th>

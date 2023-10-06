@@ -3,15 +3,19 @@ console.log("JS Sourced");
 let storedValue = resetStoredValue();
 let lastPressedType = "none";
 
-window.onload = displayHistory();
+window.onload = function (){
+    displayHistory();
+    storedValue = resetStoredValue();
+    let currentEquation = document.querySelector('#current-equation');
+    currentEquation.innerHTML = "";
+}
 
 function resetStoredValue() {
 
     let newObject = {
-        number1: "0",
-        operator: "",
-        number2: "",
-        solution: ""
+        id: 0,
+        equation: [],
+        solution: 0
     };
 
     axios.get('/history').then((response) =>{
@@ -25,10 +29,32 @@ function resetStoredValue() {
     return newObject;
 }
 
-function displayCurrent(){
-    let currentEquation = document.querySelector('#clear');
+function clearCurrent(){
+    let currentEquation = document.querySelector('#current-equation');
     currentEquation.innerHTML = "";
-    currentEquation.innerHTML = `${storedValue.number1} ${storedValue.operator}`;
+}
+
+function displayCurrent(){
+    let currentEquation = document.querySelector('#current-equation');
+    currentEquation.innerHTML = "";
+
+    let printObject = {
+        number1 : "",
+        operator: "",
+        number2: "",
+        solution: ""
+    }
+
+    for (let key in printObject){
+        if (storedValue[key] == ""){
+            printObject[key] = "____";
+        }
+        else{
+            printObject[key] = storedValue[key];
+        }
+    }
+
+    currentEquation.innerHTML = `${printObject.number1} ${printObject.operator} ${printObject.number2} = ${printObject.solution}`;
 }
 
 function unhighlightOperators(){
@@ -40,7 +66,6 @@ function unhighlightOperators(){
 }
 
 function keypress(inputStr){
-    let clearBtn = document.querySelector('#clear');
     let numberDisplay = document.querySelector('#number-display');
 
     console.log("keypress: ", inputStr);
@@ -59,6 +84,52 @@ function keypress(inputStr){
                     numberDisplay.value += keymap.keypress;
                     storedValue.number1 += keymap.keypress;
                 }
+                changeToClear();
+            }
+            else if (keymap.type == "operator"){
+                unhighlightOperators();
+                let opButton = document.getElementById(`${keymap.id}`);
+                opButton.classList.replace("operator", "operator-selected");
+                storedValue.operator = keymap.keypress;
+                displayCurrent();
+                changeToClear();
+            }
+            else if (keymap.type == "function"){
+                changeToClear();
+            }
+            else if (keymap.type == "equals"){
+                storedValue.solution = "0";
+                numberDisplay.value = "0";
+                changeToClear();
+                evaluate(storedValue);
+            }
+        }
+        else if (storedValue.number1 != "0" && storedValue.operator == "" && storedValue.solution == ""){
+            if (keymap.type == "number"){
+                numberDisplay.value += keymap.keypress;
+                storedValue.number1 += keymap.keypress;
+            }
+            else if (keymap.type == "operator"){
+                unhighlightOperators();
+                let opButton = document.getElementById(`${keymap.id}`);
+                opButton.classList.replace("operator", "operator-selected");
+                storedValue.operator = keymap.keypress;
+                displayCurrent();
+            }
+            else if (keymap.type == "function"){
+
+            }
+            else if(keymap.type == "equals"){
+                storedValue.solution == storedValue.number1;
+                numberDisplay.value = storedValue.number1;
+                unhighlightOperators();
+                evaluate(inputStr);
+            }
+        }
+        else if (storedValue.number1 != "" && storedValue.operator != "" && storedValue.number2 == "" && storedValue.solution == ""){
+            if (keymap.type == "number"){
+                numberDisplay.value = keymap.keypress;
+                storedValue.number2 += keymap.keypress;
             }
             else if (keymap.type == "operator"){
                 unhighlightOperators();
@@ -71,9 +142,11 @@ function keypress(inputStr){
 
             }
             else if (keymap.type == "equals"){
-                storedValue.solution = "0";
-                numberDisplay.value = "0";
-                evaluate(inputStr);
+                unhighlightOperators()
+                storedValue.number2 = `${storedValue.number1}`;
+                storedValue.solution = String(Number(`${storedValue.number1}${storedValue.operator}${storedValue.number2}`));
+                displayCurrent();
+                evaluate(storedValue);
             }
         }
 
@@ -85,7 +158,7 @@ function keypress(inputStr){
     });
 }
 
-function evaluate(inputStr){
+function evaluate(storedValue){
     axios.post('/history', storedValue).then((response)=>{
         console.log("POST to /history successful");
         displayHistory();
@@ -117,6 +190,18 @@ function clearHistory(id){
         console.error(error);
         alert("Error in DELETE '/history'. See console.");
     });
+}
+
+function changeToClear(){
+    let btn = document.getElementById("clear");
+    btn.setAttribute("onclick", "javascript: clear()");
+    btn.innerHTML = "C";
+}
+
+function changeToClearAll(){
+    let btn = document.getElementById("clear");
+    btn.setAttribute("onclick", "javascript: clearAll()");
+    btn.innerHTML = "AC";
 }
 
 function displayHistory(){

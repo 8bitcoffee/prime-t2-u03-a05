@@ -1,3 +1,9 @@
+@media (max-width:400px) {
+    *{
+        visibility: hidden;
+    }
+}
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -38,15 +44,30 @@ hr {
     row-gap: 0px;
     column-gap: 0px;
 }
+@media (max-width:550px) {
+    #number-display{
+        grid-column:1/5;
+        background-color: #1D1D1D;
+        color: #e4e4e4;
+        font-size: 26pt;
+        border: 1px solid black;
+        text-align: right;
+        padding: 10px;
+        padding-top: 30px;
+    }
+}
 
-#number-display{
-    grid-column:1/5;
-    background-color: #1D1D1D;
-    color: #e4e4e4;
-    font-size: 40pt;
-    border: 1px solid black;
-    text-align: right;
-    padding: 20px;
+@media (min-width:551px) {
+    #number-display {
+        grid-column:1/5;
+        background-color: #1D1D1D;
+        color: #e4e4e4;
+        font-size: 32pt;
+        border: 1px solid black;
+        text-align: right;
+        padding: 10px;
+        padding-top: 30px;
+    }
 }
 
 .operator, .number, .function {
@@ -117,6 +138,7 @@ thead {
 
 th, td {
     text-align: center;
+    padding: 5px;
 }
 
 th {
